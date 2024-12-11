@@ -1,11 +1,16 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const mongoURI =
-  "mongodb://localhost:27017/?directConnection=true&readPreference=primary";
+// MongoDB connection string
+const mongoDBURL = "mongodb://127.0.0.1:27017/myDatabase?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.4";
 
-const connectToMongo = () => {
-    mongoose.connect(mongoURI, () => {
-        console.log("Connected to MongoDB");
+// Connect to MongoDB
+mongoose.connect(mongoDBURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(() => {
+        console.log("Connection Successful");
+    })
+    .catch((err) => {
+        console.error("Connection Error:", err.message);
     });
-}
-module.exports = connectToMongo;
