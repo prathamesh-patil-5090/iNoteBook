@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // MongoDB connection string
-const mongoDBURL = "mongodb://127.0.0.1:27017/myDatabase?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.4";
+const mongoDBURL = "mongodb://127.0.0.1:27017/iNotebookDatabase?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.4";
 
 // Connect to MongoDB
 mongoose.connect(mongoDBURL, {

@@ -1,0 +1,41 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "iNoteBook",
+    "collectionId": "4684bb9b-b64f-4bb0-8b9d-26efcbca5305",
+    "dateExported": "2024-12-11T16:43:25.156Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "2272e1ed-54db-4082-aaeb-b1a10058ab4b",
+            "name": "Authentication",
+            "containerId": "",
+            "created": "2024-12-11T16:28:35.408Z",
+            "sortNum": 10000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "41acc39a-d422-4394-9cff-de9a2df47500",
+            "colId": "4684bb9b-b64f-4bb0-8b9d-26efcbca5305",
+            "containerId": "2272e1ed-54db-4082-aaeb-b1a10058ab4b",
+            "name": "Create a New User",
+            "url": "http://localhost:5000/api/auth/createuser",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-12-11T16:28:53.229Z",
+            "modified": "2024-12-11T16:35:22.180Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Pratham J\",\n  \"email\": \"aru13@gmail.com\",\n  \"password\": \"za Warudo\"\n}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "PRHLkhffDT8LGurek0_ih4f_nPW67aTczjzxGDW4e_WSffQB2AsZ_71wzrDQhKqrLgIlsb9ev-LhKfOgc3IiQQ"
+}
