@@ -1,9 +1,12 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
+const { validationResult } = require('express-validator');
 const { body } = require('express-validator');
 const User = require('../models/User');
 const router = express.Router();
+var jwt = require('jsonwebtoken');
 
+const JWT_SCERET = "nuhhhh$uhhhhhh";
 
 // Create a User using: POST "/api/auth/createuser". Doesn't require Auth
 router.post('/createuser', [
@@ -22,12 +25,57 @@ router.post('/createuser', [
             password: secPass,
             email: req.body.email
         });
-        res.json(user);
+        const data = {
+            user: {
+                id: user.id
+            }
+        }
+        const authToken = jwt.sign(data, JWT_SCERET);
+        console.log({authToken});
+        res.json({authToken});
         //.then(user => res.json(user)).catch(err => res.status(500).json({ error: `Internal Server Error: ${err.message}` }));
     } catch (error) {
         console.error("Error creating user:", error.message);
         res.status(500).json({ error: `Internal Server Error: ${error.message}` });
     }
 });
+
+// Authenticating a User using: POST "/api/auth/login". Doesn't require Login
+router.post('/login', [
+    body('email', 'Enter a valid email').isEmail(),
+    body('password', 'Password cannot be blank').exists(),
+], async (req, res) => {
+        const error = validationResult(req);
+        if (!error.isEmpty()) {
+            return res.status(400).json({ error: error.array() });
+        }
+        const { email, password } = req.body;
+
+    try {
+        let user = await User.findOne({email});
+        if (!user) {
+            return res.status(400).json({error: "Please try to login with correct credentials"});
+        }
+        const passwordCompare = await bcrypt.compare(password, user.password);
+        if (!passwordCompare) {
+            return res.status(400).json({error: "Please try to login with correct credentials"});
+        }
+        const data = {
+            user: {
+                id: user.id
+            }
+        }
+        const authToken = jwt.sign(data, JWT_SCERET);
+        res.json({authToken});
+    }
+        catch (error) {
+            console.error("Error logging in user:", error.message);
+            res.status(500).json({ error: `Internal Server Error: ${error.message}` });
+
+    }
+});
+
+
+
 
 module.exports = router;
