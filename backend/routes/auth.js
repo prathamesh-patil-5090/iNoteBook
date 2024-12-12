@@ -5,10 +5,11 @@ const { body } = require('express-validator');
 const User = require('../models/User');
 const router = express.Router();
 var jwt = require('jsonwebtoken');
+var fetchuser = require('../middleware/fetchuser');
 
-const JWT_SCERET = "nuhhhh$uhhhhhh";
+const JWT_SECRET = "nuhhhh$uhhhhhh";
 
-// Create a User using: POST "/api/auth/createuser". Doesn't require Auth
+// ROUTE 1 : Create a User using: POST "/api/auth/createuser". Doesn't require Auth
 router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 3 }),
     body('email', 'Enter a valid email').isEmail(),
@@ -30,7 +31,7 @@ router.post('/createuser', [
                 id: user.id
             }
         }
-        const authToken = jwt.sign(data, JWT_SCERET);
+        const authToken = jwt.sign(data, JWT_SECRET);
         console.log({authToken});
         res.json({authToken});
         //.then(user => res.json(user)).catch(err => res.status(500).json({ error: `Internal Server Error: ${err.message}` }));
@@ -40,7 +41,7 @@ router.post('/createuser', [
     }
 });
 
-// Authenticating a User using: POST "/api/auth/login". Doesn't require Login
+// ROUTE 2 : Authenticating a User using: POST "/api/auth/login". Doesn't require Login
 router.post('/login', [
     body('email', 'Enter a valid email').isEmail(),
     body('password', 'Password cannot be blank').exists(),
@@ -65,7 +66,7 @@ router.post('/login', [
                 id: user.id
             }
         }
-        const authToken = jwt.sign(data, JWT_SCERET);
+        const authToken = jwt.sign(data, JWT_SECRET);
         res.json({authToken});
     }
         catch (error) {
@@ -75,7 +76,16 @@ router.post('/login', [
     }
 });
 
-
-
+// ROUTE 3 : Get loggedin User Details using: POST "/api/auth/getuser". Login required
+router.post('/getuser', fetchuser, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId).select("-password");
+        res.send(user);
+    } catch (error) {
+        console.error("Error getting user:", error.message);
+        res.status(500).json({ error: `Internal Server Error: ${error.message}` });
+    }
+});
 
 module.exports = router;
