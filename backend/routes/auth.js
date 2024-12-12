@@ -6,12 +6,9 @@ const User = require('../models/User');
 const router = express.Router();
 var jwt = require('jsonwebtoken');
 var fetchuser = require('../middleware/fetchuser');
-var fetchuser = require('../middleware/fetchuser');
 
 const JWT_SECRET = "nuhhhh$uhhhhhh";
-const JWT_SECRET = "nuhhhh$uhhhhhh";
 
-// ROUTE 1 : Create a User using: POST "/api/auth/createuser". Doesn't require Auth
 // ROUTE 1 : Create a User using: POST "/api/auth/createuser". Doesn't require Auth
 router.post('/createuser', [
     body('name', 'Enter a valid name').isLength({ min: 3 }),
@@ -35,7 +32,6 @@ router.post('/createuser', [
             }
         }
         const authToken = jwt.sign(data, JWT_SECRET);
-        const authToken = jwt.sign(data, JWT_SECRET);
         console.log({authToken});
         res.json({authToken});
         //.then(user => res.json(user)).catch(err => res.status(500).json({ error: `Internal Server Error: ${err.message}` }));
@@ -45,7 +41,6 @@ router.post('/createuser', [
     }
 });
 
-// ROUTE 2 : Authenticating a User using: POST "/api/auth/login". Doesn't require Login
 // ROUTE 2 : Authenticating a User using: POST "/api/auth/login". Doesn't require Login
 router.post('/login', [
     body('email', 'Enter a valid email').isEmail(),
