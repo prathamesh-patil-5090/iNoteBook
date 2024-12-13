@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 .App-logo {
@@ -9,6 +9,9 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
+    -webkit-animation: App-logo-spin infinite 20s linear;
+    -moz-animation: App-logo-spin infinite 20s linear;
+    -o-animation: App-logo-spin infinite 20s linear;
     animation: App-logo-spin infinite 20s linear;
   }
 }
@@ -22,10 +25,38 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  text-align: center; /* Center align headers */
 }
 
 .App-link {
-  color: #61dafb;
+  transform: rotate(360deg);
+}
+
+@-webkit-keyframes App-logo-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes App-logo-spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes App-logo-spin {
+  from {
+    -o-transform: rotate(0deg);
+  }
+  to {
+    -o-transform: rotate(360deg);
+  }
 }
 
 @keyframes App-logo-spin {

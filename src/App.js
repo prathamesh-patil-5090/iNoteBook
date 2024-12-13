@@ -11,7 +11,7 @@ function App() {
       <NoteState>
         <div className="App">
           <NavBar /> {/* Add NavBar component */}
-          <div className='container'>
+          <div>
               <Routes>
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/about" element={<About />} />

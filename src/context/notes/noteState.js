@@ -14,13 +14,25 @@ const NoteState = (props) => {
                 "title": "my title",
                 "description": "my description",
                 "tag": "my tag",
-                "id": "2"
+                "id": "1"
             },
             {
                 "title": "my title",
                 "description": "my description",
                 "tag": "my tag",
-                "id": "3"
+                "id": "1"
+            },
+            {
+                "title": "my title",
+                "description": "my description",
+                "tag": "my tag",
+                "id": "1"
+            },
+            {
+                "title": "my title",
+                "description": "my description",
+                "tag": "my tag",
+                "id": "1"
             }
     ]
 
