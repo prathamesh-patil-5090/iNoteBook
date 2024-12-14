@@ -1,31 +1,27 @@
-import React, { useContext } from "react";
-import PropTypes from "prop-types";
-import NoteContext from "../context/notes/noteContext";
-import NoteItem from "./NoteItem";
+import React, { useContext, useEffect } from 'react';
+import NoteContext from '../context/notes/noteContext';
+import NoteItem from './NoteItem';
 
 const Notes = () => {
-    const { notes } = useContext(NoteContext);
+    const { notes, getNotes } = useContext(NoteContext);
+
+    useEffect(() => {
+        getNotes();
+        // eslint-disable-next-line
+    },[]);
 
     return (
-        <div className="row">
+        <div className="notes-container">
             <h1>Your Notes</h1>
-            {notes.map((note) => (
-                <div key={note.id} className="col-md-3">
-                    <NoteItem note={note} />
-                </div>
-            ))}
+            <div className="row">
+                {Array.isArray(notes) && notes.map((note) => (
+                    <div key={note._id} className="col-md-3">
+                        <NoteItem note={note} />
+                    </div>
+                ))}
+            </div>
         </div>
     );
-};
-
-Notes.propTypes = {
-    notes: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
-            content: PropTypes.string.isRequired,
-        })
-    ),
 };
 
 export default Notes;
