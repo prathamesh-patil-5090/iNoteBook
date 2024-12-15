@@ -17,6 +17,5 @@ export default function Alert(props) {
 }
 
 Alert.propTypes = {
-  alert: PropTypes.string,
-  onClose: PropTypes.func.isRequired, // Ensure onClose prop is passed
+  alert: PropTypes.object,
 };
