@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import axios from 'axios'; // Assuming you'll use axios for API calls
+import Alert from './Alert';
 
 const Signup = () => {
   const host = "http://localhost:5000";
@@ -12,7 +12,7 @@ const Signup = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [error, setError] = useState('');
+  const [alert, setAlert] = useState(null);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -29,21 +29,21 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setAlert(null);
 
     // Validation checks
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match!");
+      setAlert({ type: 'danger', msg: 'Passwords do not match!' });
       return;
     }
 
     if (!validateEmail(formData.email)) {
-      setError("Invalid email format!");
+      setAlert({ type: 'danger', msg: 'Invalid email format!' });
       return;
     }
 
     if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters long!");
+      setAlert({ type: 'danger', msg: 'Password must be at least 6 characters long!' });
       return;
     }
 
@@ -55,8 +55,6 @@ const Signup = () => {
     };
 
     try {
-      // Replace with your actual signup endpoint
-      // const response = await axios.post(`${host}/api/auth/signup`, userData);
       const response = await fetch(`${host}/api/auth/createuser`, {
         method: 'POST',
         headers: {
@@ -66,21 +64,16 @@ const Signup = () => {
       });
       const json = await response.json();
       console.log(json);
-      if(json.authToken !== undefined) {
+      if (json.authToken !== undefined) {
         // Save the auth token and redirect
         localStorage.setItem('token', json.authToken);
+        setAlert({ type: 'success', msg: 'Account created successfully!' });
         window.location.href = '/';
-      }else{
-          alert('User already exists !');
+      } else {
+        setAlert({ type: 'danger', msg: 'User already exists!' });
       }
-      // Handle successful signup (e.g., redirect, show success message)
-      console.log('Signup successful', response.data);
-      
-      // Optional: Redirect to login or dashboard
-      // window.location.href = '/login';
     } catch (err) {
-      // Handle signup errors
-      setError(err.response?.data?.message || 'Signup failed');
+      setAlert({ type: 'danger', msg: err.message || 'Signup failed' });
     }
   };
 
@@ -90,11 +83,7 @@ const Signup = () => {
         <div className="card-body p-4">
           <h2 className="card-title text-center mb-4">Create an Account</h2>
           
-          {error && (
-            <div className="alert alert-danger" role="alert">
-              {error}
-            </div>
-          )}
+          <Alert alert={alert} />
           
           <form onSubmit={handleSubmit}>
             <div className="mb-3">

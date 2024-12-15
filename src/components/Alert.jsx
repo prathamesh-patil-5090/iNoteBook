@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 export default function Alert(props) {
   const captialized = (word) => {
+    if(word === 'danger') {
+      return 'Error';
+    }
     const lower = word.toLowerCase();
     return lower.charAt(0).toUpperCase() + lower.slice(1);
   };

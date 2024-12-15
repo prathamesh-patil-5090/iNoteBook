@@ -45,15 +45,15 @@ const Notes = () => {
                                 <form>
                                     <div className="form-group">
                                         <label htmlFor="title">Title</label>
-                                        <input type="text" className="form-control" id="title" name="title" value={currentNote.title} onChange={onChange}/>
+                                        <input type="text" className="form-control" id="title" name="title" value={currentNote.title} onChange={onChange} />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="description">Description</label>
-                                        <textarea className="form-control" id="description" name="description" value={currentNote.description} onChange={onChange} ></textarea>
+                                        <textarea className="form-control" id="description" name="description" value={currentNote.description} onChange={onChange}></textarea>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="tag">Tag</label>
-                                        <input type="text" className="form-control" id="tag" name="tag" value={currentNote.tag} onChange={onChange}/>
+                                        <input type="text" className="form-control" id="tag" name="tag" value={currentNote.tag} onChange={onChange} />
                                     </div>
                                 </form>
                             </div>
@@ -67,15 +67,11 @@ const Notes = () => {
             </div>
             <h1>Your Notes</h1>
             <div className="row">
-                {Array.isArray(notes) && notes.length === 0 ? (
-                    <h2>No Notes to display</h2>
-                ) : (
-                    notes.map((note) => (
-                        <div key={note._id} className="col-md-3">
-                            <NoteItem note={note} updateNote={updateNote} />
-                        </div>
-                    ))
-                )}
+                {Array.isArray(notes) && notes.map((note) => (
+                    <div key={note._id} className="col-md-3">
+                        <NoteItem note={note} updateNote={updateNote} />
+                    </div>
+                ))}
             </div>
         </div>
     );
