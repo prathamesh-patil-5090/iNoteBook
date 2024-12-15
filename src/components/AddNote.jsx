@@ -55,7 +55,7 @@ const AddNote = () => {
                     onChange={onChange}
                 />
             </div>
-            <button type="submit" className="btn btn-primary">Add a Note</button>
+            <button type="submit" className="btn btn-primary my-2">Add a Note</button>
         </form>
     );
 };
