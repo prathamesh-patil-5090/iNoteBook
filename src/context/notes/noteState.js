@@ -60,6 +60,11 @@ const NoteState = (props) => {
             },
             body: JSON.stringify({ title, description, tag })
         });
+        if (response.status !== 200) {
+            console.error("Failed to update the note");
+            return;
+        }
+        // const json = await response.json();
         let newNotes = JSON.parse(JSON.stringify(notes));
         for(let i = 0; i < newNotes.length; i++) {
             if(newNotes[i]._id === id) {
