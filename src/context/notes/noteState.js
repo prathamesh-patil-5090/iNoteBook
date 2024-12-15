@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import NoteContext from './noteContext';
 
 const NoteState = (props) => {
     const host = "http://localhost:5000";
-    const notesInitial = [];
-    const [notes, setNotes] = useState(notesInitial);
+    const NotesInitial = [];
 
-    // Fetch all notes
+    const [notes, setNotes] = useState(NotesInitial);
+
+    // Get all Notes
     const getNotes = async () => {
         const response = await fetch(`${host}/api/notes/fetchallnotes`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1OWNjMjMzNjQ4YTBiMDI0YzEzZmM0In0sImlhdCI6MTczNDIyNTQ1Mn0.9HQ0loMFeyH_oasf0pkZaUaYaMnzqL_lsKwr9XcMrsY"
-                // 'auth-token': localStorage.getItem('token')
+                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1OWNjMjMzNjQ4YTBiMDI0YzEzZmM0In0sImlhdCI6MTczNDIyOTQ3OX0.Gjzi-rBZyPp1Cqzgej_z7Mav4ow9MsNei8uMEUsmmt0"
             }
         });
         const json = await response.json();
@@ -24,18 +24,13 @@ const NoteState = (props) => {
         }
     };
 
-    useEffect(() => {
-        getNotes();
-    }, []);
-
     // Add a new note
     const addNote = async (title, description, tag) => {
         const response = await fetch(`${host}/api/notes/addnote`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1OWNjMjMzNjQ4YTBiMDI0YzEzZmM0In0sImlhdCI6MTczNDIyNTQ1Mn0.9HQ0loMFeyH_oasf0pkZaUaYaMnzqL_lsKwr9XcMrsY"
-                // 'auth-token': localStorage.getItem('token')
+                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1OWNjMjMzNjQ4YTBiMDI0YzEzZmM0In0sImlhdCI6MTczNDIyOTQ3OX0.Gjzi-rBZyPp1Cqzgej_z7Mav4ow9MsNei8uMEUsmmt0"
             },
             body: JSON.stringify({ title, description, tag })
         });
@@ -49,8 +44,7 @@ const NoteState = (props) => {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1OWNjMjMzNjQ4YTBiMDI0YzEzZmM0In0sImlhdCI6MTczNDIyNTQ1Mn0.9HQ0loMFeyH_oasf0pkZaUaYaMnzqL_lsKwr9XcMrsY"
-                // 'auth-token': localStorage.getItem('token')
+                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1OWNjMjMzNjQ4YTBiMDI0YzEzZmM0In0sImlhdCI6MTczNDIyOTQ3OX0.Gjzi-rBZyPp1Cqzgej_z7Mav4ow9MsNei8uMEUsmmt0"
             }
         });
         setNotes((prevNotes) => prevNotes.filter((note) => note._id !== id));
@@ -62,18 +56,25 @@ const NoteState = (props) => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1OWNjMjMzNjQ4YTBiMDI0YzEzZmM0In0sImlhdCI6MTczNDIyNTQ1Mn0.9HQ0loMFeyH_oasf0pkZaUaYaMnzqL_lsKwr9XcMrsY"
-                // 'auth-token': localStorage.getItem('token')
+                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1OWNjMjMzNjQ4YTBiMDI0YzEzZmM0In0sImlhdCI6MTczNDIyOTQ3OX0.Gjzi-rBZyPp1Cqzgej_z7Mav4ow9MsNei8uMEUsmmt0"
             },
             body: JSON.stringify({ title, description, tag })
         });
-        const json = await response.json();
-
-        setNotes((prevNotes) =>
-            prevNotes.map((note) =>
-                note._id === id ? json : note
-            )
-        );
+        let newNotes = JSON.parse(JSON.stringify(notes));
+        for(let i = 0; i < newNotes.length; i++) {
+            if(newNotes[i]._id === id) {
+                newNotes[i].title = title;
+                newNotes[i].description = description;
+                newNotes[i].tag = tag;
+                break;
+            }
+        }
+        setNotes(newNotes);
+        // setNotes((prevNotes) =>
+        //     prevNotes.map((note) =>
+        //         note._id === id ? json : note
+        //     )
+        // );
     };
 
     return (
