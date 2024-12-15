@@ -12,7 +12,7 @@ const NoteState = (props) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1YTY1MjI1MjBmMmZmOGQxNDgyMmU1In0sImlhdCI6MTczNDE0ODIzOH0.3S1RwAeRuSPkd6_Y25XlEDAE3-3Qk4lWhFXaRIN3LlA"
+                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1OWNjMjMzNjQ4YTBiMDI0YzEzZmM0In0sImlhdCI6MTczNDIyNTQ1Mn0.9HQ0loMFeyH_oasf0pkZaUaYaMnzqL_lsKwr9XcMrsY"
                 // 'auth-token': localStorage.getItem('token')
             }
         });
@@ -34,7 +34,7 @@ const NoteState = (props) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1YTY1MjI1MjBmMmZmOGQxNDgyMmU1In0sImlhdCI6MTczNDE0ODIzOH0.3S1RwAeRuSPkd6_Y25XlEDAE3-3Qk4lWhFXaRIN3LlA"
+                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1OWNjMjMzNjQ4YTBiMDI0YzEzZmM0In0sImlhdCI6MTczNDIyNTQ1Mn0.9HQ0loMFeyH_oasf0pkZaUaYaMnzqL_lsKwr9XcMrsY"
                 // 'auth-token': localStorage.getItem('token')
             },
             body: JSON.stringify({ title, description, tag })
@@ -49,7 +49,7 @@ const NoteState = (props) => {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1YTY1MjI1MjBmMmZmOGQxNDgyMmU1In0sImlhdCI6MTczNDE0ODIzOH0.3S1RwAeRuSPkd6_Y25XlEDAE3-3Qk4lWhFXaRIN3LlA"
+                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1OWNjMjMzNjQ4YTBiMDI0YzEzZmM0In0sImlhdCI6MTczNDIyNTQ1Mn0.9HQ0loMFeyH_oasf0pkZaUaYaMnzqL_lsKwr9XcMrsY"
                 // 'auth-token': localStorage.getItem('token')
             }
         });
@@ -62,7 +62,7 @@ const NoteState = (props) => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1YTY1MjI1MjBmMmZmOGQxNDgyMmU1In0sImlhdCI6MTczNDE0ODIzOH0.3S1RwAeRuSPkd6_Y25XlEDAE3-3Qk4lWhFXaRIN3LlA"
+                'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjc1OWNjMjMzNjQ4YTBiMDI0YzEzZmM0In0sImlhdCI6MTczNDIyNTQ1Mn0.9HQ0loMFeyH_oasf0pkZaUaYaMnzqL_lsKwr9XcMrsY"
                 // 'auth-token': localStorage.getItem('token')
             },
             body: JSON.stringify({ title, description, tag })
