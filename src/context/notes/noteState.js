@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import NoteContext from './noteContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 
+const TITLE_MIN_LENGTH = 4;
+const DESCRIPTION_MIN_LENGTH = 4;
+const TAG_MIN_LENGTH = 4;
+
 const NoteState = (props) => {
     const host = "http://localhost:5000";
     const NotesInitial = [];
@@ -76,33 +80,43 @@ const NoteState = (props) => {
 
     // Edit a note
     const editNote = async (id, title, description, tag) => {
-        const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'auth-token': localStorage.getItem('token')
-            },
-            body: JSON.stringify({ title, description, tag })
-        });
-        const json = await response.json();
-        let newNotes = JSON.parse(JSON.stringify(notes))
-        // Logic to edit in client
-        for (let index = 0; index < newNotes.length; index++) {
-        const element = newNotes[index];
-        if (element._id === id) {
-            newNotes[index].title = title;
-            newNotes[index].description = description;
-            newNotes[index].tag = tag; 
-            break; 
+        try {
+            const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': localStorage.getItem('token')
+                },
+                body: JSON.stringify({ title, description, tag })
+            });
+    
+            if (!response.ok) {
+                const error = await response.text();
+                console.error('Failed to update note:', error);
+                return null;
+            }
+    
+            let newNotes = JSON.parse(JSON.stringify(notes));
+            
+            // Logic to edit in client
+            for (let index = 0; index < newNotes.length; index++) {
+                const element = newNotes[index];
+                if (element._id === id) {
+                    if (title.length > TITLE_MIN_LENGTH) newNotes[index].title = title;
+                    if (description.length > DESCRIPTION_MIN_LENGTH) newNotes[index].description = description;
+                    if (tag.length > TAG_MIN_LENGTH) newNotes[index].tag = tag;
+                    break;
+                }
+            }
+            
+            setNotes(newNotes);
+            return newNotes.find(note => note._id === id);
+        } catch (error) {
+            console.error('Error updating note:', error);
+            return null;
         }
-        }  
-        // setNotes(newNotes);
-        setNotes((newNotes) =>
-            newNotes.map((note) =>
-                note._id === id ? json : note
-            )
-        );
-    };
+    }
+
 
     return (
         <NoteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes }}>
