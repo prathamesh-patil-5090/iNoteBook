@@ -26,9 +26,11 @@ const AddNote = () => {
                     className="form-control"
                     id="title"
                     name="title"
-                    placeholder="Enter title"
+                    placeholder="Enter title (Minimum 5 characters else will not be added)"
                     value={note.title}
                     onChange={onChange}
+                    minLength={5}
+                    required
                 />
             </div>
             <div className="form-group">
@@ -38,9 +40,11 @@ const AddNote = () => {
                     id="description"
                     name="description"
                     rows="3"
-                    placeholder="Enter description"
+                    placeholder="Enter description (Minimum 5 characters else will not be added)"
                     value={note.description}
                     onChange={onChange}
+                    minLength={5}
+                    required
                 ></textarea>
             </div>
             <div className="form-group">
@@ -50,9 +54,11 @@ const AddNote = () => {
                     className="form-control"
                     id="tag"
                     name="tag"
-                    placeholder="Enter tag"
+                    placeholder="Enter tag (Minimum 5 characters else will not be added)"
                     value={note.tag}
                     onChange={onChange}
+                    minLength={5}
+                    required
                 />
             </div>
             <button type="submit" className="btn btn-primary my-2">Add a Note</button>
